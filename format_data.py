@@ -29,6 +29,6 @@ for event in TABLE_CONTENT:
 event_list = sorted(event_list, key = operator.itemgetter('id'))
 
 f = open('detonations.json', 'w')
-f.write(json.dumps(event_list) + "\n")
+f.write(json.dumps(event_list))
 f.close()
 print 'detonations.json, written!'
