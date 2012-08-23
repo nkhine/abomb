@@ -6,8 +6,8 @@ function aBombClient() {
 		t = 0,
 		timeout;
 	// Set up the thunder audio element
-	var audioElement2 = document.createElement('audio');
-	audioElement2.setAttribute('src', 'audio/thunder.wav');
+	//var audioElement2 = document.createElement('audio');
+	//audioElement2.setAttribute('src', 'audio/thunder.wav');
 
 	this.init = function() {
 		self.drawMap();
