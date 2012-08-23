@@ -85,7 +85,7 @@ function aBombClient() {
 			d3.select(this).transition()
 			.attr("r", yield)
 		});
-		self.audioElement2.play();
+		//self.audioElement2.play();
 		// append the dettonation details
 		self.svg.append("svg:text")
 		.attr("x", x - 10)
