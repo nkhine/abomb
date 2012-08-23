@@ -42,9 +42,10 @@ function aBombClient() {
 	this.loadNext = function () {
 		d3.json("./data/detonations.json", function(datum) {
 			//self.data.push({time: ++t, value: datum});
-			timeout = setTimeout(self.loadNext, 1000)
+			//timeout = setTimeout(self.loadNext, 1000)
 			for(var i = datum.length - 1; i >= 0; --i) {
 				var o = datum[i];
+				//console.log(o);
 				message = {
 					country: o.country
 					,date: o.date
@@ -52,7 +53,7 @@ function aBombClient() {
 					,lon: o.lon
 					,lat: o.lat
 					,type: o.type
-					,yield: o.yeild
+					,yield: o.yield
 				};
 				self.drawDetonation(message)
 			}
@@ -60,6 +61,7 @@ function aBombClient() {
 	}
 
 	this.drawDetonation = function (message) {
+		
 		var country = message.country
 				,date = message.date
 				,depth = message.depth
@@ -72,26 +74,27 @@ function aBombClient() {
 		x = mapCoords[0]; // longitude
 		y = mapCoords[1]; // latitude
 		self.svg.append("svg:circle")
-		.attr("r", yield)
+		.attr("r", 2)
 		.attr("transform", function() { return "translate(" + x + "," + y + ")"; })
 		.attr("class", "abomb")
 		.style("fill", "steelblue")
 		.on("mouseover", function(){
 			d3.select(this).transition()
-			.attr("r", yield + 5)
+			.attr("r", 5)
 		})
 		.on("mouseout", function() {
 			//this.parentNode.appendChild(this);
 			d3.select(this).transition()
-			.attr("r", yield)
+			.attr("r", 2)
 		});
+		console.log(yield);
 		//self.audioElement2.play();
 		// append the dettonation details
-		self.svg.append("svg:text")
-		.attr("x", x - 10)
-		.attr("dy", y + 10)
-		.style("fill", "red")
-		.text(function(d) { return yield; });
+		//self.svg.append("svg:text")
+		//.attr("x", x - 10)
+		//.attr("dy", y + 10)
+		//.style("fill", "red")
+		//.text(function(d) { return yield; });
 	}
 
 	this.init();
