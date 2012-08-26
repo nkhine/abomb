@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 # # Copyright (C) 2007 Norman Khine <norman@zmgc.net>
 import operator, json
+import time, datetime
 from BeautifulSoup import BeautifulSoup
 from content_table import TABLE_CONTENT
 
@@ -11,19 +12,22 @@ combos={0: 'id',
 		6: 'lon',
 		12: 'name' }
 
+time_format = "%Y/%m/%d %H:%M:%S"
 
-print len(TABLE_CONTENT)
 event_list = []
 for event in TABLE_CONTENT:
+	previousDetonation = None
+	print previousDetonation
 	event_dict = {}
 	for index, item in enumerate(event):
+		# time to next event
+		previousDetonation = None
 		if index == 8:
 			if item == '&nbsp;':
 				event_dict['depth'] = '0'
 			else:
 				event_dict['depth'] = item
 		if index == 9:
-			print item
 			try:
 				items = item.split()
 				if len(items) >= 2:
@@ -38,7 +42,9 @@ for event in TABLE_CONTENT:
 		if index == 4:
 			soup = BeautifulSoup(item)
 			for a in soup.findAll('a'):
-				event_dict['date'] = ''.join(a.findAll(text=True))
+				event_date = ''.join(a.findAll(text=True))
+				event_date = datetime.datetime.fromtimestamp(time.mktime(time.strptime(event_date, time_format)))
+				event_dict['date'] = str(event_date)
 		if index == 3:
 			if 'Atmospheric' in item:
 				event_dict['fill'] = 'red'

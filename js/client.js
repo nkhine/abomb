@@ -1,13 +1,10 @@
 function aBombClient() {
 	var self = this,
 		width = $('#map').width(),
-		mapCanvasHeight = (width * 0.45),
-		data = [],
-		t = 0,
-		timeout;
+		mapCanvasHeight = (width * 0.45);
 	// Set up the thunder audio element
-	//var audioElement2 = document.createElement('audio');
-	//audioElement2.setAttribute('src', 'audio/thunder.wav');
+	var audioElement2 = document.createElement('audio');
+	audioElement2.setAttribute('src', 'audio/thunder.wav');
 
 	this.init = function() {
 		self.drawMap();
@@ -43,8 +40,15 @@ function aBombClient() {
 		d3.json("./data/detonations.json", function(datum) {
 			//self.data.push({time: ++t, value: datum});
 			//timeout = setTimeout(self.loadNext, 1000)
+			var previousDetonation;
 			for(var i = datum.length - 1; i >= 0; --i) {
 				var o = datum[i];
+				//console.log(previousDetonation); 
+				//currentDetonation = o.date;
+				//if (typeof(previousDetonation) !=='undefined') {
+				//	var diffDetonation = (new Date(o.date)).getTime() - (new Date(previousDetonation)).getTime();
+				//	console.log(diffDetonation);
+				//}
 				//console.log(o);
 				message = {
 					country: o.country
@@ -87,7 +91,7 @@ function aBombClient() {
 			d3.select(this).transition()
 			.attr("r", 2)
 		});
-		console.log(yield);
+		console.log(yield, date, depth);
 		//self.audioElement2.play();
 		// append the dettonation details
 		//self.svg.append("svg:text")
